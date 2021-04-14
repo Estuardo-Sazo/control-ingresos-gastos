@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 const config= require('../config/index');
 const groups= require('./components/groups/network');
-
+const subGroups= require('./components/sub-groups/network');
 const errors = require('../network/errors');
 
 const app = express();
@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 // ROUTER
 app.use('/api/groups',groups);
+app.use('/api/sub-groups',subGroups);
 
 
 
