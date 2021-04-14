@@ -42,14 +42,32 @@ function list(table) {
     });
   });
 }
-
+ 
 function get(table, id) {
   return new Promise((resolve, reject) => {
-      connection.query(`SELECT * FROM ${table} WHERE id='${id}'`, (err, data) => {
+      connection.query(`SELECT * FROM ${table} WHERE uuid='${id}'`, (err, data) => {
           if (err) return reject(err);
           resolve(data);
       });
   });
+}
+
+function getOf(table, value,key) {
+  return new Promise((resolve, reject) => {
+      connection.query(`SELECT * FROM ${table} WHERE ${key}='${value}'`, (err, data) => {
+          if (err) return reject(err);
+          resolve(data);
+      });
+  });
+}
+
+function deleteOf(table, value, key) {
+  return new Promise((resolve, reject) => {
+    connection.query(`DELETE FROM ${table} WHERE ${key}='${value}'`, (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  })
 }
 
 function insert(table, data) {
@@ -64,8 +82,8 @@ function insert(table, data) {
 function update(table, data) {
   return new Promise((resolve, reject) => {
     connection.query(
-      `UPDATE ${table} SET ? WHERE id=?`,
-      [data, data.id],
+      `UPDATE ${table} SET ? WHERE uuid=?`,
+      [data, data.uuid],
       (err, result) => {
         if (err) return reject(err);
         resolve(result);
@@ -74,8 +92,7 @@ function update(table, data) {
   });
 }
 
-async function upsert(table, data, isNew) {
- 
+async function upsert(table, data, isNew) { 
   if (data && isNew) {
     return insert(table, data);
   } else {
@@ -106,4 +123,5 @@ module.exports = {
   get,
   upsert,
   query,
+  deleteOf,
 };
