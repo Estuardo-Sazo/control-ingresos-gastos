@@ -1,7 +1,8 @@
 const uuid = require("uuid");
 const { nanoid } = require('nanoid')
-const TABLA = "sub_groups";
+const TABLA = "expenses";
 const TABLA_G = "groups";
+const TABLA_SG = "sub_groups";
 
 module.exports = function(injentedStore) {
     let store = injentedStore;
