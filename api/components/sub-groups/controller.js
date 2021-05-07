@@ -18,7 +18,7 @@ module.exports = function(injentedStore) {
     }
 
     async function getQuery() {
-        const query = `SELECT sg.uuid, sg.name , sg.description, g.name as 'group' FROM ${TABLA} sg
+        const query = `SELECT sg.uuid, sg.name , sg.description, g.name as 'group', g.uuid as 'g_uuid' FROM ${TABLA} sg
                         INNER JOIN ${TABLA_G} g ON g.uuid=sg.group`;
         return store.getQuery(query);
     }
