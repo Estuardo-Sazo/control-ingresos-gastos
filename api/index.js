@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
+
 const cors = require('cors')
 
 const config = require('../config/index');
@@ -10,6 +12,7 @@ const errors = require('../network/errors');
 const app = express();
 app.use(cors())
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
 
 // ROUTER
