@@ -32,11 +32,15 @@ module.exports = function(injentedStore) {
 
     async function post(body) {
         const data = {};
-        const { name, description, group } = body;
+
+        const { name, description, subgroup, period, value } = body;
         data.uuid = nanoid();
         data.name = name;
-        data.group = group;
         data.description = description;
+        data.sub_group = subgroup;
+        data.period = period;
+        data.value = value;
+        data.status = 1;
         return store.upsert(TABLA, data, true);
     }
 

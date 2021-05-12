@@ -23,6 +23,12 @@ module.exports = function(injentedStore) {
         return store.getQuery(query);
     }
 
+    async function getForGroup(id) {
+        const query = `SELECT sg.uuid, sg.name , sg.description, g.name as 'group', g.uuid as 'g_uuid' FROM ${TABLA} sg
+                        INNER JOIN ${TABLA_G} g ON g.uuid=sg.group  WHERE sg.group='${id}' `;
+        return store.getQuery(query);
+    }
+
     async function del(uuid) {
         return store.deleteOf(TABLA, uuid, 'uuid');
     }
@@ -60,6 +66,7 @@ module.exports = function(injentedStore) {
         post,
         put,
         del,
+        getForGroup,
         getQuery
     };
 

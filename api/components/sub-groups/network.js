@@ -21,8 +21,17 @@ router.get("/as", (req, res, next) => {
 
 router.get("/:uuid", (req, res, next) => {
     const { uuid } = req.params;
-    console.log(uuid);
-    const group = Controller.get(uuid)
+    Controller.get(uuid)
+        .then((group) => {
+            response.success(req, res, group, 200);
+        })
+        .catch(next);
+});
+
+router.get("/:uuid/group", (req, res, next) => {
+    const { uuid } = req.params;
+
+    Controller.getForGroup(uuid)
         .then((group) => {
             response.success(req, res, group, 200);
         })
