@@ -42,7 +42,7 @@ router.put("/", (req, res, next) => {
 router.delete("/:uuid", (req, res, next) => {
     const { uuid } = req.params;
     console.log(uuid);
-    const group = Controller.del(uuid)
+   Controller.del(uuid)
         .then((group) => {
             response.success(req, res, group, 200);
         })
