@@ -33,20 +33,21 @@ module.exports = function(injentedStore) {
     async function post(body) {
         const data = {};
 
-        const { name, description, subgroup, period, value } = body;
+        const { name, description, subgroup, period, value, date } = body;
         data.uuid = nanoid();
         data.name = name;
         data.description = description;
         data.sub_group = subgroup;
         data.period = period;
         data.value = value;
+        data.date = date;
         data.status = 1;
         return store.upsert(TABLA, data, true);
     }
 
     async function put(body) {
         const data = {};
-        const { uuid, name, description, group } = body;
+        const { uuid, name, description, group, date } = body;
         data.uuid = uuid;
 
         if (name) {
@@ -57,6 +58,9 @@ module.exports = function(injentedStore) {
         }
         if (group) {
             data.group = group;
+        }
+        if (date) {
+            data.date = date;
         }
         return store.upsert(TABLA, data, false);
     }
