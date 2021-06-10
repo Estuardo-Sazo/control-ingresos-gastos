@@ -23,6 +23,17 @@ router.get("/:uuid", (req, res, next) => {
         .catch(next);
 });
 
+router.get("/detail/:uuid", (req, res, next) => {
+
+    res.header('Access-Control-Allow-Origin', '*');
+const { uuid } = req.params;
+    const lista = Controller.listDetail(uuid)
+        .then((lista) => {
+            response.success(req, res, lista, 200);
+        })
+        .catch(next);
+})
+
 router.post("/", (req, res, next) => {
     Controller.post(req.body, true)
         .then((group) => {
@@ -31,18 +42,17 @@ router.post("/", (req, res, next) => {
         .catch(next);
 });
 
-router.put("/", (req, res, next) => {
-    Controller.put(req.body, false)
+router.post("/detail/", (req, res, next) => {
+    Controller.postDetail(req.body, false)
         .then((group) => {
             response.success(req, res, group, 201);
         })
         .catch(next);
 });
 
-router.delete("/:uuid", (req, res, next) => {
+router.delete("/detail/:uuid", (req, res, next) => {
     const { uuid } = req.params;
-    console.log(uuid);
-   Controller.del(uuid)
+   Controller.delDetail(uuid)
         .then((group) => {
             response.success(req, res, group, 200);
         })
